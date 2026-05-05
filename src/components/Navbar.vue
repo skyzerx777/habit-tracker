@@ -3,7 +3,8 @@ import { CheckBadgeIcon } from '@heroicons/vue/24/outline';
 </script>
 
 <template>
-	<header class="text-slate-900 bg-slate-50">
+	<!-- desktop -->
+	<header class="text-slate-900 bg-slate-50 hidden">
 		<nav class="flex justify-between items-center p-4">
 			<div class="flex gap-2 w-1/4">
 				<CheckBadgeIcon class="size-8 text-main" />
@@ -23,4 +24,17 @@ import { CheckBadgeIcon } from '@heroicons/vue/24/outline';
 		</nav>
 		<hr class="text-slate-300" />
 	</header>
+
+	<!-- mobile -->
+	<div class="fixed w-full bottom-0 border-t border-slate-300">
+		<ul class="flex justify-around leading-10 text-center py-2">
+			<li class="w-1/3"><a href="/">Dashboard</a></li>
+			<li class="w-1/3 shrink-0">
+				<button class="cursor-pointer bg-main text-white rounded-md w-full">
+					+ Add
+				</button>
+			</li>
+			<li class="w-1/3"><a href="/stats">Stats</a></li>
+		</ul>
+	</div>
 </template>
