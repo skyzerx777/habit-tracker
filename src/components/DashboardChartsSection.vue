@@ -4,31 +4,37 @@ import { FireIcon } from '@heroicons/vue/20/solid';
 </script>
 
 <template>
-	<section class="flex gap-8 grow bg-red-300">
-		<div class="flex justify-between w-2/3">
-			<div class="flex gap-2 py-6 px-4 border border-slate-200 rounded-sm">
-				<CheckCircleIcon class="text-main size-6" />
-				<div>
-					<p class="font-medium">23</p>
-					<p>Habits Completed</p>
+	<section class="flex gap-8 grow">
+		<div class="flex flex-col gap-4">
+			<div class="flex justify-between gap-4">
+				<div class="flex py-6 px-4 border border-slate-200 rounded-sm">
+					<CheckCircleIcon class="text-main size-6" />
+					<div>
+						<p class="font-medium">23</p>
+						<p class="text-slate-500">Habits Completed</p>
+					</div>
+				</div>
+				<div class="flex py-6 px-4 border border-slate-200 rounded-sm">
+					<FireIcon class="text-orange-400 size-6" />
+					<div>
+						<p class="font-medium">7</p>
+						<p class="text-slate-500">Best Streak</p>
+					</div>
+				</div>
+				<div class="flex py-6 px-4 border border-slate-200 rounded-sm">
+					<ArrowTrendingUpIcon class="text-green-600 size-6" />
+					<div>
+						<p class="font-medium">85%</p>
+						<p class="text-slate-500">Avg. Completition Rate</p>
+					</div>
 				</div>
 			</div>
-			<div class="flex gap-2 py-6 px-4 border border-slate-200 rounded-sm">
-				<FireIcon class="text-main size-6" />
-				<div>
-					<p class="font-medium">7</p>
-					<p>Best Streak</p>
-				</div>
+			<div class="h-36 w-full py-6 px-4 border border-slate-200 rounded-sm">
+				Completition Rate Chart
 			</div>
-			<div class="flex gap-2 py-6 px-4 border border-slate-200 rounded-sm">
-				<ArrowTrendingUpIcon class="text-main size-6" />
-				<div>
-					<p class="font-medium">85%</p>
-					<p>Avg. Completition Rate</p>
-				</div>
-			</div>
-			<div class="h-36 w-48 bg-blue-500 self-`"></div>
 		</div>
-		<div class="w-1/3 py-6 px-4 border border-slate-200 rounded-sm"></div>
+		<div class="w-1/3 py-6 px-4 border border-slate-200 rounded-sm">
+			Habits overview chart
+		</div>
 	</section>
 </template>
