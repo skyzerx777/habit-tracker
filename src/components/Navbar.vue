@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { CheckBadgeIcon } from '@heroicons/vue/24/outline';
+import AddHabitModal from './AddHabitModal.vue';
 </script>
 
 <template>
@@ -15,11 +16,7 @@ import { CheckBadgeIcon } from '@heroicons/vue/24/outline';
 				<li><a href="/stats">Stats</a></li>
 			</ul>
 			<div class="text-end w-1/4">
-				<button
-					class="cursor-pointer bg-main leading-10 px-6 text-white rounded-md"
-				>
-					+ Add habit
-				</button>
+				<AddHabitModal />
 			</div>
 		</nav>
 		<hr class="text-slate-300" />
