@@ -14,7 +14,13 @@ const store = useHabitsStore();
 			</p>
 		</div>
 		<div class="flex justify-between">
-			<p>3/5 completed</p>
+			<p>
+				{{
+					store.countHabitsCompletedToday() +
+					(store.habits.length ? `/${store.habits.length}` : '')
+				}}
+				completed
+			</p>
 			<div>-------------------------------- (progress slider)</div>
 		</div>
 		<Habit v-for="habit in store.habits" :key="habit.id" :habit />

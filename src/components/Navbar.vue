@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { CheckBadgeIcon } from '@heroicons/vue/24/outline';
+import { BadgeCheck } from '@lucide/vue';
 import AddHabitModal from './AddHabitModal.vue';
 </script>
 
@@ -8,7 +8,7 @@ import AddHabitModal from './AddHabitModal.vue';
 	<header class="text-slate-900 bg-slate-50 max-md:hidden">
 		<nav class="flex justify-between items-center p-4">
 			<div class="flex gap-2 w-1/4">
-				<CheckBadgeIcon class="size-8 text-main" />
+				<BadgeCheck class="size-8 text-main" />
 				<h1 class="font-semibold text-2xl">Habit Tracker</h1>
 			</div>
 			<ul class="flex justify-center grow gap-4">

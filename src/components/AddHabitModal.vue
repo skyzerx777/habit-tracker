@@ -10,7 +10,7 @@ import {
 	TransitionChild,
 	TransitionRoot,
 } from '@headlessui/vue';
-import { PlusIcon } from '@heroicons/vue/20/solid';
+import { Plus } from '@lucide/vue';
 import { computed, ref } from 'vue';
 
 const isModalOpen = ref(false);
@@ -88,7 +88,7 @@ function handleCancel() {
 								<div
 									class="size-16 rounded-full bg-main/10 flex items-center justify-center"
 								>
-									<PlusIcon class="text-main size-12" />
+									<Plus class="text-main size-12" />
 								</div>
 								<div>
 									<DialogTitle class="font-bold">Add New Habit</DialogTitle>
@@ -117,7 +117,7 @@ function handleCancel() {
 								</label>
 								<div class="flex flex-col gap-4 mb-6">
 									<p class="font-medium">Icon & Color</p>
-									<div class="flex gap-2">
+									<div class="flex gap-2 flex-wrap">
 										<button
 											v-for="icon in HABIT_ICONS"
 											:key="icon.value"

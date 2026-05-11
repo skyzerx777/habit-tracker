@@ -13,7 +13,7 @@
   "dependencies": {
     "@fontsource/inter": "^5.2.8",
     "@headlessui/vue": "^1.7.23",
-    "@heroicons/vue": "^2.2.0",
+    "@lucide/vue": "^1.14.0",
     "@tailwindcss/vite": "^4.2.4",
     "pinia": "^3.0.4",
     "tailwindcss": "^4.2.4",

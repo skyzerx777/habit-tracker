@@ -79,11 +79,25 @@ export const useHabitsStore = defineStore('habits', () => {
 
 		return calculateStreak(currentHabit?.completedDates);
 	}
+
+	function countHabitsCompletedToday() {
+		const todayDate = new Date().toISOString().slice(0, 10);
+
+		let habitsCompletedToday = habits.value.reduce((accumulator, curr) => {
+			return curr.completedDates.includes(todayDate)
+				? ++accumulator
+				: accumulator;
+		}, 0);
+
+		return habitsCompletedToday;
+	}
+
 	return {
 		habits,
 		addHabit,
 		markTodayCompletition,
 		removeTodayCompletition,
 		getHabitStreak,
+		countHabitsCompletedToday,
 	};
 });
