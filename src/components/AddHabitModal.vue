@@ -97,14 +97,16 @@ function handleCancel() {
 									</DialogDescription>
 								</div>
 							</div>
-							<form action="submit" class="flex flex-col">
+							<form @submit.prevent="handleSubmit" class="flex flex-col">
 								<label>
 									<p class="font-medium">Habit Name</p>
 									<input
 										type="text"
 										name="habit-name"
+										h
 										v-model="habitName"
 										placeholder="e.g. Drink Water"
+										required
 									/>
 								</label>
 								<label>
@@ -151,8 +153,8 @@ function handleCancel() {
 										Cancel
 									</button>
 									<button
+										type="submit"
 										class="cursor-pointer bg-main text-slate-50 rounded-lg px-10 h-12"
-										@click.prevent="handleSubmit"
 									>
 										Add habit
 									</button>
