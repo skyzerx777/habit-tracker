@@ -86,7 +86,15 @@ export const useHabitsStore = defineStore('habits', () => {
 		return calculateStreak(currentHabit?.completedDates);
 	}
 
-	function countHabitsCompletedToday() {
+	function getBestStreak(): string {
+		if (!habits.value.length) return '0';
+
+		return Math.max(
+			...habits.value.map(habit => getHabitStreak(habit.id)),
+		).toString();
+	}
+
+	function countHabitsCompletedToday(): number {
 		const todayDate = new Date().toISOString().slice(0, 10);
 
 		let habitsCompletedToday = habits.value.reduce((accumulator, curr) => {
@@ -111,6 +119,7 @@ export const useHabitsStore = defineStore('habits', () => {
 		addHabit,
 		toggleTodayCompletion,
 		getHabitStreak,
+		getBestStreak,
 		countHabitsCompletedToday,
 		getCompletedHabitsNumber,
 	};

@@ -14,7 +14,7 @@ const cardsInfo = computed(() => [
 		textColor: 'text-main',
 	},
 	{
-		counter: '7',
+		counter: store.getBestStreak(),
 		text: 'Best Streak',
 		icon: Flame,
 		textColor: 'text-orange-400',
