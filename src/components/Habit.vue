@@ -4,7 +4,7 @@ import { HABIT_ICONS } from '@/constants/icons';
 import { useHabitsStore } from '@/stores/habits';
 import type { IHabit } from '@/types';
 import { Flame } from '@lucide/vue';
-import { computed, onBeforeMount, ref, watchEffect } from 'vue';
+import { computed, onBeforeMount, ref } from 'vue';
 
 const { habit } = defineProps<{ habit: IHabit }>();
 
@@ -23,15 +23,6 @@ onBeforeMount(() => {
 	const today = new Date(Date.now()).toISOString().slice(0, 10);
 	if (habit.completedDates.includes(today)) {
 		completedToday.value = true;
-	}
-});
-
-watchEffect(() => {
-	if (completedToday.value === true) {
-		store.markTodayCompletition(habit.id);
-	}
-	if (completedToday.value === false) {
-		store.removeTodayCompletition(habit.id);
 	}
 });
 </script>
@@ -53,6 +44,11 @@ watchEffect(() => {
 				</p>
 			</div>
 		</div>
-		<input type="checkbox" name="habit-completition" v-model="completedToday" />
+		<input
+			type="checkbox"
+			name="habit-Completion"
+			v-model="completedToday"
+			@change="store.toggleTodayCompletion(habit.id)"
+		/>
 	</div>
 </template>

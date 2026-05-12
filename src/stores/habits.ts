@@ -22,20 +22,26 @@ export const useHabitsStore = defineStore('habits', () => {
 		});
 	}
 
-	function markTodayCompletition(id: string): void {
-		const currentHabit = habits.value.find((item: IHabit) => item.id === id);
-		currentHabit?.completedDates.push(
-			new Date(Date.now()).toISOString().slice(0, 10),
-		);
-	}
+	function toggleTodayCompletion(id: string): void {
+		const todayDate = new Date(Date.now()).toISOString().slice(0, 10);
 
-	function removeTodayCompletition(id: string): void {
-		const currentHabit = habits.value.find((item: IHabit) => item.id === id);
-		currentHabit?.completedDates.splice(-1, 1);
+		const habit = habits.value.find(item => item.id === id);
+
+		if (!habit) return;
+
+		if (habit.completedDates.includes(todayDate)) {
+			habit.completedDates = habit.completedDates.filter(
+				date => date !== todayDate,
+			);
+		} else {
+			habit.completedDates.push(todayDate);
+		}
 	}
 
 	function calculateStreak(completedDays: string[]): number {
-		if (!completedDays.length) return 0;
+		const sortedDays = [...completedDays].sort();
+
+		if (!sortedDays.length) return 0;
 
 		const yesterdayDate = new Date(Date.now() - 1000 * 60 * 60 * 24)
 			.toISOString()
@@ -44,17 +50,17 @@ export const useHabitsStore = defineStore('habits', () => {
 		const todayDate = new Date().toISOString().slice(0, 10);
 
 		if (
-			!completedDays.includes(yesterdayDate) &&
-			!completedDays.includes(todayDate)
+			!sortedDays.includes(yesterdayDate) &&
+			!sortedDays.includes(todayDate)
 		) {
 			return 0;
 		}
 
 		let streak = 1;
 
-		for (let i = completedDays.length - 1; i > 0; i--) {
-			const [cy, cm, cd] = completedDays[i]!.split('-').map(Number);
-			const [py, pm, pd] = completedDays[i - 1]!.split('-').map(Number);
+		for (let i = sortedDays.length - 1; i > 0; i--) {
+			const [cy, cm, cd] = sortedDays[i]!.split('-').map(Number);
+			const [py, pm, pd] = sortedDays[i - 1]!.split('-').map(Number);
 
 			const currentDay = new Date(cy!, cm! - 1, cd!);
 			const previousDay = new Date(py!, pm! - 1, pd!);
@@ -73,7 +79,7 @@ export const useHabitsStore = defineStore('habits', () => {
 		return streak;
 	}
 
-	function getHabitStreak(id: string) {
+	function getHabitStreak(id: string): number {
 		const currentHabit = habits.value.find((item: IHabit) => item.id === id);
 		if (!currentHabit) return 0;
 
@@ -92,12 +98,20 @@ export const useHabitsStore = defineStore('habits', () => {
 		return habitsCompletedToday;
 	}
 
+	function getCompletedHabitsNumber(): string {
+		return habits.value
+			.reduce((total, habit) => {
+				return total + habit.completedDates.length;
+			}, 0)
+			.toString();
+	}
+
 	return {
 		habits,
 		addHabit,
-		markTodayCompletition,
-		removeTodayCompletition,
+		toggleTodayCompletion,
 		getHabitStreak,
 		countHabitsCompletedToday,
+		getCompletedHabitsNumber,
 	};
 });

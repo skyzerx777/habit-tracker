@@ -1,10 +1,14 @@
 <script setup lang="ts">
+import { useHabitsStore } from '@/stores/habits';
 import { CircleCheck, Flame, TrendingUp } from '@lucide/vue';
+import { computed } from 'vue';
 import DashboardCard from './DashboardCard.vue';
 
-const cardsInfo = [
+const store = useHabitsStore();
+
+const cardsInfo = computed(() => [
 	{
-		counter: '23',
+		counter: store.getCompletedHabitsNumber(),
 		text: 'Habits Completed',
 		icon: CircleCheck,
 		textColor: 'text-main',
@@ -17,11 +21,11 @@ const cardsInfo = [
 	},
 	{
 		counter: '85%',
-		text: 'Avg. Completition Rate',
+		text: 'Avg. Completion Rate',
 		icon: TrendingUp,
 		textColor: 'text-green-400',
 	},
-];
+]);
 </script>
 
 <template>
@@ -31,7 +35,7 @@ const cardsInfo = [
 				<DashboardCard v-for="item in cardsInfo" :item />
 			</div>
 			<div class="h-36 w-full py-6 px-4 border border-slate-200 rounded-sm">
-				Completition Rate Chart
+				Completion Rate Chart
 			</div>
 		</div>
 		<div class="w-1/3 py-6 px-4 border border-slate-200 rounded-sm">

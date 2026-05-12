@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import type { Component } from 'vue';
+import { type Component } from 'vue';
 
-defineProps<{
+const props = defineProps<{
 	item: {
 		counter: string;
 		text: string;

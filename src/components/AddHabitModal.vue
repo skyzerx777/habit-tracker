@@ -140,7 +140,7 @@ function handleCancel() {
 											:class="`${selectedColorValue === color.value ? 'bg-main/10' : ''} cursor-pointer w-10 h-8 rounded-2xl`"
 										>
 											<div
-												:class="`${color.bgClass} ${selectedColorValue === color.value ? 'size-4' : 'size-5'} rounded-full m-auto transition-all duration-300`"
+												:class="`${color.bgClass} ${selectedColorValue === color.value ? 'size-4' : 'size-5'} rounded-full m-auto transition-all duration-200`"
 											></div>
 										</button>
 									</div>

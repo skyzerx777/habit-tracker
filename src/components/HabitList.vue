@@ -17,7 +17,9 @@ const progressBarWidth = computed(() => {
 		<div class="flex justify-between">
 			<p>Today</p>
 			<p>
-				{{ store.habits.length }} habit{{ store.habits.length > 1 ? 's' : '' }}
+				{{ store.habits.length }} habit{{
+					store.habits.length !== 1 ? 's' : ''
+				}}
 			</p>
 		</div>
 		<div class="flex justify-between">
