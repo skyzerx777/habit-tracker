@@ -12,16 +12,19 @@ import {
 } from '@headlessui/vue';
 import { Plus } from '@lucide/vue';
 import { computed, ref } from 'vue';
-
-const isModalOpen = ref(false);
+import { useToast } from 'vue-toastification';
 
 const store = useHabitsStore();
 
+const isModalOpen = ref(false);
 const habitName = ref('');
 const habitDescription = ref<string | undefined>();
+const inputRef = ref<HTMLInputElement | null>(null);
 
 const selectedColorValue = ref(HABIT_COLORS[0]!.value);
 const selectedIconValue = ref(HABIT_ICONS[0]!.value);
+
+const toast = useToast();
 
 const selectedColor = computed(() => {
 	return HABIT_COLORS.find(item => item.value === selectedColorValue.value);
@@ -35,18 +38,26 @@ const resetForm = () => {
 };
 
 function handleSubmit() {
-	store.addHabit(
-		habitName.value,
-		selectedIconValue.value,
-		selectedColorValue.value,
-		habitDescription.value,
-	);
-	isModalOpen.value = false;
-	setTimeout(resetForm, 300);
+	if (habitName.value.length < 1) {
+		toast.error('Habit name should be longer than 1 symbol.');
+		inputRef.value?.focus();
+	} else {
+		store.addHabit(
+			habitName.value,
+			selectedIconValue.value,
+			selectedColorValue.value,
+			habitDescription.value,
+		);
+		isModalOpen.value = false;
+
+		toast.info('Habit added.');
+		setTimeout(resetForm, 300);
+	}
 }
 
 function handleCancel() {
 	isModalOpen.value = false;
+	toast.warning('Canceled.');
 	setTimeout(resetForm, 300);
 }
 </script>
@@ -60,7 +71,7 @@ function handleCancel() {
 	</button>
 
 	<Teleport to="body">
-		<TransitionRoot :show="isModalOpen" as="template">
+		<TransitionRoot :show="isModalOpen" @close="handleCancel" as="template">
 			<Dialog @close="isModalOpen = false" class="fixed inset-0 z-50">
 				<TransitionChild
 					as="template"
@@ -99,14 +110,14 @@ function handleCancel() {
 							</div>
 							<form @submit.prevent="handleSubmit" class="flex flex-col">
 								<label>
-									<p class="font-medium">Habit Name</p>
+									<p class="font-medium">Habit Name (required)</p>
 									<input
+										ref="inputRef"
 										type="text"
 										name="habit-name"
 										h
 										v-model="habitName"
 										placeholder="e.g. Drink Water"
-										required
 									/>
 								</label>
 								<label>

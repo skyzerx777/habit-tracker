@@ -5,6 +5,7 @@ import { useHabitsStore } from '@/stores/habits';
 import type { IHabit } from '@/types';
 import { Flame } from '@lucide/vue';
 import { computed, onBeforeMount, ref } from 'vue';
+import { useToast } from 'vue-toastification';
 
 const { habit } = defineProps<{ habit: IHabit }>();
 
@@ -25,6 +26,16 @@ onBeforeMount(() => {
 		completedToday.value = true;
 	}
 });
+
+function handleInputChange() {
+	store.toggleTodayCompletion(habit.id);
+	const toast = useToast();
+	if (completedToday.value) {
+		toast.success('Habit completed!');
+	} else {
+		toast.info('Habit marked as uncompleted.');
+	}
+}
 </script>
 
 <template>
@@ -48,7 +59,7 @@ onBeforeMount(() => {
 			type="checkbox"
 			name="habit-Completion"
 			v-model="completedToday"
-			@change="store.toggleTodayCompletion(habit.id)"
+			@change="handleInputChange"
 		/>
 	</div>
 </template>
