@@ -4,6 +4,7 @@ import { ref } from 'vue';
 
 export const useHabitsStore = defineStore('habits', () => {
 	const habits = ref<IHabit[]>([]);
+	const todayDate = new Date().toISOString().slice(0, 10);
 
 	function addHabit(
 		name: string,
@@ -23,8 +24,6 @@ export const useHabitsStore = defineStore('habits', () => {
 	}
 
 	function toggleTodayCompletion(id: string): void {
-		const todayDate = new Date(Date.now()).toISOString().slice(0, 10);
-
 		const habit = habits.value.find(item => item.id === id);
 
 		if (!habit) return;
@@ -46,8 +45,6 @@ export const useHabitsStore = defineStore('habits', () => {
 		const yesterdayDate = new Date(Date.now() - 1000 * 60 * 60 * 24)
 			.toISOString()
 			.slice(0, 10);
-
-		const todayDate = new Date().toISOString().slice(0, 10);
 
 		if (
 			!sortedDays.includes(yesterdayDate) &&
@@ -95,8 +92,6 @@ export const useHabitsStore = defineStore('habits', () => {
 	}
 
 	function countHabitsCompletedToday(): number {
-		const todayDate = new Date().toISOString().slice(0, 10);
-
 		let habitsCompletedToday = habits.value.reduce((accumulator, curr) => {
 			return curr.completedDates.includes(todayDate)
 				? ++accumulator
@@ -114,6 +109,31 @@ export const useHabitsStore = defineStore('habits', () => {
 			.toString();
 	}
 
+	function calculateHabitCompletitionRate(habit: IHabit): number {
+		const [cy, cm, cd] = todayDate.split('-').map(Number);
+		const [sy, sm, sd] = habit.createdAt.split('-').map(Number);
+
+		const currentDay = new Date(cy!, cm! - 1, cd!);
+		const startDay = new Date(sy!, sm! - 1, sd!);
+
+		const totalTrackableDays =
+			Math.round(
+				(currentDay.getTime() - startDay.getTime()) / (1000 * 60 * 60 * 24),
+			) + 1;
+
+		return (habit.completedDates.length / totalTrackableDays) * 100;
+	}
+
+	function getAverageCompletitionRate(): number {
+		if (!habits.value.length) return 0;
+
+		return Math.round(
+			habits.value.reduce((total, habit) => {
+				return total + calculateHabitCompletitionRate(habit);
+			}, 0) / habits.value.length,
+		);
+	}
+
 	return {
 		habits,
 		addHabit,
@@ -122,5 +142,6 @@ export const useHabitsStore = defineStore('habits', () => {
 		getBestStreak,
 		countHabitsCompletedToday,
 		getCompletedHabitsNumber,
+		getAverageCompletitionRate,
 	};
 });
