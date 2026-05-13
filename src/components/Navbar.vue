@@ -12,8 +12,8 @@ import AddHabitModal from './AddHabitModal.vue';
 				<h1 class="font-semibold text-2xl">Habit Tracker</h1>
 			</div>
 			<ul class="flex justify-center grow gap-4">
-				<li><a href="/">Dashboard</a></li>
-				<li><a href="/stats">Stats</a></li>
+				<li><RouterLink to="/">Dashboard</RouterLink></li>
+				<li><RouterLink to="/stats">Stats</RouterLink></li>
 			</ul>
 			<div class="text-end w-1/4">
 				<AddHabitModal />
