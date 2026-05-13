@@ -1,3 +1,4 @@
+import HabitDetails from '@/pages/HabitDetails.vue';
 import Home from '@/pages/Home.vue';
 import Stats from '@/pages/Stats.vue';
 import { createRouter, createWebHistory } from 'vue-router';
@@ -7,6 +8,7 @@ const router = createRouter({
 	routes: [
 		{ path: '/', component: Home },
 		{ path: '/stats', component: Stats },
+		{ path: '/details/:id', component: HabitDetails },
 	],
 });
 

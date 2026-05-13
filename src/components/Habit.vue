@@ -40,7 +40,10 @@ function handleInputChange() {
 
 <template>
 	<div class="flex justify-between px-2">
-		<div class="flex items-center gap-6">
+		<RouterLink
+			:to="`/details/${habit.id}`"
+			class="w-full flex items-center gap-6"
+		>
 			<component :is="icon?.icon" :class="`size-6 ${color?.textClass}`" />
 			<div>
 				<h3 class="font-semibold">{{ habit.name }}</h3>
@@ -54,14 +57,7 @@ function handleInputChange() {
 					</span>
 				</p>
 			</div>
-		</div>
-		<!-- 		<input
-			type="checkbox"
-			name="habit-Completion"
-			v-model="completedToday"
-			@change="handleInputChange"
-			class="size-5 accent-main cursor-pointer"
-		/> -->
+		</RouterLink>
 		<label class="flex items-center gap-3 cursor-pointer">
 			<input
 				v-model="completedToday"

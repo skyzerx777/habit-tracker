@@ -12,8 +12,18 @@ import AddHabitModal from './AddHabitModal.vue';
 				<h1 class="font-semibold text-2xl">Habit Tracker</h1>
 			</div>
 			<ul class="flex justify-center grow gap-4">
-				<li><RouterLink to="/">Dashboard</RouterLink></li>
-				<li><RouterLink to="/stats">Stats</RouterLink></li>
+				<li>
+					<RouterLink to="/" active-class="text-main border-b-2 border-main"
+						>Dashboard</RouterLink
+					>
+				</li>
+				<li>
+					<RouterLink
+						to="/stats"
+						active-class="text-main border-b-2 border-main"
+						>Stats</RouterLink
+					>
+				</li>
 			</ul>
 			<div class="text-end w-1/4">
 				<AddHabitModal />
@@ -26,15 +36,13 @@ import AddHabitModal from './AddHabitModal.vue';
 	<div class="fixed w-full bottom-0 border-t border-slate-300 md:hidden">
 		<nav>
 			<ul class="flex justify-around items-center leading-10 text-center">
-				<li class="w-1/3"><a href="/">Dashboard</a></li>
-				<li class="w-1/3 shrink-0">
-					<button
-						class="cursor-pointer bg-main text-white rounded-full w-full h-12"
-					>
-						+ Add
-					</button>
+				<li class="w-1/3">
+					<RouterLink to="/">Dashboard</RouterLink>
 				</li>
-				<li class="w-1/3"><a href="/stats">Stats</a></li>
+				<li class="w-1/3 shrink-0">
+					<AddHabitModal />
+				</li>
+				<li class="w-1/3"><RouterLink to="/stats">Stats</RouterLink></li>
 			</ul>
 		</nav>
 	</div>
