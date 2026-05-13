@@ -10,18 +10,21 @@ import {
 	TransitionChild,
 	TransitionRoot,
 } from '@headlessui/vue';
-import { PlusIcon } from '@heroicons/vue/20/solid';
+import { Plus } from '@lucide/vue';
 import { computed, ref } from 'vue';
-
-const isModalOpen = ref(false);
+import { useToast } from 'vue-toastification';
 
 const store = useHabitsStore();
 
+const isModalOpen = ref(false);
 const habitName = ref('');
 const habitDescription = ref<string | undefined>();
+const inputRef = ref<HTMLInputElement | null>(null);
 
 const selectedColorValue = ref(HABIT_COLORS[0]!.value);
 const selectedIconValue = ref(HABIT_ICONS[0]!.value);
+
+const toast = useToast();
 
 const selectedColor = computed(() => {
 	return HABIT_COLORS.find(item => item.value === selectedColorValue.value);
@@ -35,18 +38,26 @@ const resetForm = () => {
 };
 
 function handleSubmit() {
-	store.addHabit(
-		habitName.value,
-		selectedIconValue.value,
-		selectedColorValue.value,
-		habitDescription.value,
-	);
-	isModalOpen.value = false;
-	setTimeout(resetForm, 300);
+	if (habitName.value.length < 1) {
+		toast.error('Habit name should be longer than 1 symbol.');
+		inputRef.value?.focus();
+	} else {
+		store.addHabit(
+			habitName.value,
+			selectedIconValue.value,
+			selectedColorValue.value,
+			habitDescription.value,
+		);
+		isModalOpen.value = false;
+
+		toast.info('Habit added.');
+		setTimeout(resetForm, 300);
+	}
 }
 
 function handleCancel() {
 	isModalOpen.value = false;
+	toast.warning('Canceled.');
 	setTimeout(resetForm, 300);
 }
 </script>
@@ -60,7 +71,7 @@ function handleCancel() {
 	</button>
 
 	<Teleport to="body">
-		<TransitionRoot :show="isModalOpen" as="template">
+		<TransitionRoot :show="isModalOpen" @close="handleCancel" as="template">
 			<Dialog @close="isModalOpen = false" class="fixed inset-0 z-50">
 				<TransitionChild
 					as="template"
@@ -88,7 +99,7 @@ function handleCancel() {
 								<div
 									class="size-16 rounded-full bg-main/10 flex items-center justify-center"
 								>
-									<PlusIcon class="text-main size-12" />
+									<Plus class="text-main size-12" />
 								</div>
 								<div>
 									<DialogTitle class="font-bold">Add New Habit</DialogTitle>
@@ -97,12 +108,14 @@ function handleCancel() {
 									</DialogDescription>
 								</div>
 							</div>
-							<form action="submit" class="flex flex-col">
+							<form @submit.prevent="handleSubmit" class="flex flex-col">
 								<label>
-									<p class="font-medium">Habit Name</p>
+									<p class="font-medium">Habit Name (required)</p>
 									<input
+										ref="inputRef"
 										type="text"
 										name="habit-name"
+										h
 										v-model="habitName"
 										placeholder="e.g. Drink Water"
 									/>
@@ -117,7 +130,7 @@ function handleCancel() {
 								</label>
 								<div class="flex flex-col gap-4 mb-6">
 									<p class="font-medium">Icon & Color</p>
-									<div class="flex gap-2">
+									<div class="flex gap-2 flex-wrap">
 										<button
 											v-for="icon in HABIT_ICONS"
 											:key="icon.value"
@@ -138,7 +151,7 @@ function handleCancel() {
 											:class="`${selectedColorValue === color.value ? 'bg-main/10' : ''} cursor-pointer w-10 h-8 rounded-2xl`"
 										>
 											<div
-												:class="`${color.bgClass} ${selectedColorValue === color.value ? 'size-4' : 'size-5'} rounded-full m-auto transition-all duration-300`"
+												:class="`${color.bgClass} ${selectedColorValue === color.value ? 'size-4' : 'size-5'} rounded-full m-auto transition-all duration-200`"
 											></div>
 										</button>
 									</div>
@@ -151,8 +164,8 @@ function handleCancel() {
 										Cancel
 									</button>
 									<button
+										type="submit"
 										class="cursor-pointer bg-main text-slate-50 rounded-lg px-10 h-12"
-										@click.prevent="handleSubmit"
 									>
 										Add habit
 									</button>
