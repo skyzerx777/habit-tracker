@@ -20,7 +20,7 @@ const cardsInfo = computed(() => [
 		textColor: 'text-orange-400',
 	},
 	{
-		counter: `${store.getAverageCompletitionRate()}%`,
+		counter: `${store.getAverageCompletionRate()}%`,
 		text: 'Avg. Completion Rate',
 		icon: TrendingUp,
 		textColor: 'text-green-400',
