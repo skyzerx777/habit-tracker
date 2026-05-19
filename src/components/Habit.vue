@@ -49,12 +49,7 @@ function handleInputChange() {
 				<h3 class="font-semibold">{{ habit.name }}</h3>
 				<p class="flex items-center gap-1">
 					<Flame class="size-4 text-orange-500" />
-					<span>
-						{{ store.getHabitStreak(habit.id) }} day{{
-							store.getHabitStreak(habit.id) > 1 ? 's' : ''
-						}}
-						streak
-					</span>
+					<span> {{ store.getHabitStreak(habit.id) }} day streak</span>
 				</p>
 			</div>
 		</RouterLink>

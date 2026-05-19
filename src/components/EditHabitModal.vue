@@ -4,70 +4,64 @@ import { HABIT_ICONS } from '@/constants/icons';
 import { useHabitsStore } from '@/stores/habits';
 import {
 	Dialog,
-	DialogDescription,
 	DialogPanel,
 	DialogTitle,
 	TransitionChild,
 	TransitionRoot,
 } from '@headlessui/vue';
-import { Plus } from '@lucide/vue';
-import { computed, ref } from 'vue';
+import { Pencil } from '@lucide/vue';
+import { computed, reactive, ref } from 'vue';
 import { useToast } from 'vue-toastification';
 
+const props = defineProps<{ habitId: string }>();
+
 const store = useHabitsStore();
-
-const isModalOpen = ref(false);
-const habitName = ref('');
-const habitDescription = ref<string | undefined>();
-const inputRef = ref<HTMLInputElement | null>(null);
-
-const selectedColorValue = ref(HABIT_COLORS[0]!.value);
-const selectedIconValue = ref(HABIT_ICONS[0]!.value);
-
 const toast = useToast();
 
-const selectedColor = computed(() => {
-	return HABIT_COLORS.find(item => item.value === selectedColorValue.value);
+const isModalOpen = ref(false);
+const inputRef = ref<HTMLInputElement | null>(null);
+
+const selectedHabit = computed(() =>
+	store.habits.find(habit => habit.id === props.habitId),
+);
+
+const editedHabit = reactive({
+	name: selectedHabit.value!.name,
+	description: selectedHabit.value!.description,
+	icon: selectedHabit.value!.icon,
+	color: selectedHabit.value!.color,
 });
 
-const resetForm = () => {
-	habitName.value = '';
-	selectedIconValue.value = HABIT_ICONS[0]!.value;
-	selectedColorValue.value = HABIT_COLORS[0]!.value;
-	habitDescription.value = '';
-};
+const selectedColor = computed(() =>
+	HABIT_COLORS.find(color => color.value === editedHabit.color),
+);
 
 function handleSubmit() {
-	if (habitName.value.length < 1) {
+	if (editedHabit.name.length < 1) {
 		toast.error('Habit name should be longer than 1 symbol.');
 		inputRef.value?.focus();
 	} else {
-		store.addHabit(
-			habitName.value,
-			selectedIconValue.value,
-			selectedColorValue.value,
-			habitDescription.value,
-		);
+		store.editHabit(selectedHabit.value?.id!, editedHabit);
+
 		isModalOpen.value = false;
 
-		toast.info('Habit added.');
-		setTimeout(resetForm, 200);
+		toast.info('Habit edited.');
 	}
 }
 
 function handleCancel() {
 	isModalOpen.value = false;
 	toast.warning('Canceled.');
-	setTimeout(resetForm, 200);
 }
 </script>
 
 <template>
 	<button
 		@click="isModalOpen = true"
-		class="cursor-pointer bg-main leading-10 px-6 text-white rounded-md"
+		class="flex items-center justify-center gap-2 cursor-pointer text-slate-500 border border-slate-300 rounded-lg w-1/3"
 	>
-		+ Add habit
+		<Pencil class="size-5" />
+		Edit
 	</button>
 
 	<Teleport to="body">
@@ -99,14 +93,9 @@ function handleCancel() {
 								<div
 									class="size-16 rounded-full bg-main/10 flex items-center justify-center"
 								>
-									<Plus class="text-main size-12" />
+									<Pencil class="text-main size-8" />
 								</div>
-								<div>
-									<DialogTitle class="font-bold">Add New Habit</DialogTitle>
-									<DialogDescription class="text-slate-500 text-sm">
-										Create a new habit to track your progress.
-									</DialogDescription>
-								</div>
+								<DialogTitle class="font-bold">Edit Habit</DialogTitle>
 							</div>
 							<form @submit.prevent="handleSubmit" class="flex flex-col">
 								<label>
@@ -115,8 +104,7 @@ function handleCancel() {
 										ref="inputRef"
 										type="text"
 										name="habit-name"
-										h
-										v-model="habitName"
+										v-model="editedHabit.name"
 										placeholder="e.g. Drink Water"
 									/>
 								</label>
@@ -124,7 +112,7 @@ function handleCancel() {
 									<p class="font-medium">Description (optional)</p>
 									<textarea
 										name="habit-description"
-										v-model="habitDescription"
+										v-model="editedHabit.description"
 										placeholder="Add a short description..."
 									></textarea>
 								</label>
@@ -134,8 +122,8 @@ function handleCancel() {
 										<button
 											v-for="icon in HABIT_ICONS"
 											:key="icon.value"
-											@click.prevent="selectedIconValue = icon.value"
-											:class="`${selectedIconValue === icon.value ? `bg-main/10 ${selectedColor?.textClass}` : 'text-slate-400'} cursor-pointer size-12 border border-slate-200 rounded-xl transition-colors duration-300`"
+											@click.prevent="editedHabit.icon = icon.value"
+											:class="`${editedHabit.icon === icon.value ? `bg-main/10 ${selectedColor?.textClass}` : 'text-slate-400'} cursor-pointer size-12 border border-slate-200 rounded-xl transition-colors duration-300`"
 										>
 											<component
 												:is="icon.icon"
@@ -147,11 +135,11 @@ function handleCancel() {
 										<button
 											v-for="color in HABIT_COLORS"
 											:key="color.value"
-											@click.prevent="selectedColorValue = color.value"
-											:class="`${selectedColorValue === color.value ? 'bg-main/10' : ''} cursor-pointer w-10 h-8 rounded-2xl`"
+											@click.prevent="editedHabit.color = color.value"
+											:class="`${editedHabit.color === color.value ? 'bg-main/10' : ''} cursor-pointer w-10 h-8 rounded-2xl`"
 										>
 											<div
-												:class="`${color.bgClass} ${selectedColorValue === color.value ? 'size-4' : 'size-5'} rounded-full m-auto transition-all duration-200`"
+												:class="`${color.bgClass} ${editedHabit.color === color.value ? 'size-4' : 'size-5'} rounded-full m-auto transition-all duration-200`"
 											></div>
 										</button>
 									</div>
@@ -167,7 +155,7 @@ function handleCancel() {
 										type="submit"
 										class="cursor-pointer bg-main text-slate-50 rounded-lg px-10 h-12"
 									>
-										Add habit
+										Save
 									</button>
 								</div>
 							</form>

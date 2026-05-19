@@ -23,6 +23,20 @@ export const useHabitsStore = defineStore('habits', () => {
 		});
 	}
 
+	function removeHabit(id: string): void {
+		const index = habits.value.findIndex(habit => habit.id === id);
+
+		habits.value.splice(index, 1);
+	}
+
+	function editHabit(id: string, updates: Partial<IHabit>): void {
+		const selectedHabit = habits.value.find(habit => habit.id === id);
+
+		if (!selectedHabit) return;
+
+		Object.assign(selectedHabit, updates);
+	}
+
 	function toggleTodayCompletion(id: string): void {
 		const habit = habits.value.find(item => item.id === id);
 
@@ -137,6 +151,8 @@ export const useHabitsStore = defineStore('habits', () => {
 	return {
 		habits,
 		addHabit,
+		removeHabit,
+		editHabit,
 		toggleTodayCompletion,
 		getHabitStreak,
 		getBestStreak,
