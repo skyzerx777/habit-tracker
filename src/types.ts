@@ -7,3 +7,11 @@ export interface IHabit {
 	createdAt: string;
 	completedDates: string[];
 }
+
+export interface ICalendarDay {
+	date: string;
+	dayNumber: number;
+	currentMonth: boolean;
+	today: boolean;
+	completed: boolean;
+}

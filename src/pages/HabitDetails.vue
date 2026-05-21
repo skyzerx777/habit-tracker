@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import Calendar from '@/components/Calendar.vue';
 import EditHabitModal from '@/components/EditHabitModal.vue';
 import RemoveHabitModal from '@/components/RemoveHabitModal.vue';
 import { HABIT_COLORS } from '@/constants/colors';
@@ -32,9 +33,9 @@ const color = computed(() => {
 				<ArrowLeft class="size-4" /> Back
 			</button>
 		</RouterLink>
-		<div class="flex mt-8">
-			<div class="flex flex-col gap-5 w-1/2">
-				<div class="border border-slate-200 rounded-md py-6 px-4">
+		<div class="flex gap-8 mt-8">
+			<div class="flex flex-col gap-5 w-5/12">
+				<div class="border border-slate-200 rounded-sm py-6 px-4">
 					<div class="flex gap-4">
 						<component
 							:is="icon?.icon"
@@ -59,11 +60,13 @@ const color = computed(() => {
 					</div>
 				</div>
 				<div
-					class="flex items-center justify-around border border-slate-200 rounded-md py-6 px-4"
+					class="flex items-center justify-around border border-slate-200 rounded-sm py-6 px-4"
 				>
-					<div class="flex items-center justify-center w-1/2 gap-2">
+					<div
+						class="flex items-center justify-center w-1/2 gap-2 border-r border-slate-200"
+					>
 						<div
-							class="flex justify-center items-center box-border bg-main/5 size-14 rounded-md"
+							class="flex justify-center items-center box-border bg-main/5 size-14 rounded-sm"
 						>
 							<TrendingUp class="text-main" />
 						</div>
@@ -76,7 +79,7 @@ const color = computed(() => {
 					</div>
 					<div class="flex justify-center items-center w-1/2 gap-2">
 						<div
-							class="flex justify-center items-center bg-orange-500/5 size-14 rounded-md box-border"
+							class="flex justify-center items-center bg-orange-500/5 size-14 rounded-sm box-border"
 						>
 							<Trophy class="text-orange-500" />
 						</div>
@@ -89,7 +92,14 @@ const color = computed(() => {
 					</div>
 				</div>
 			</div>
-			<div class="w-1/2"></div>
+			<div class="flex flex-col gap-5 grow">
+				<div class="border border-slate-200 rounded-sm py-6 px-4">
+					<Calendar :completedDates="selectedHabit?.completedDates!" />
+				</div>
+				<div
+					class="flex items-center justify-around border border-slate-200 rounded-sm py-6 px-4"
+				></div>
+			</div>
 		</div>
 	</section>
 </template>
