@@ -92,7 +92,7 @@ function handleToggleDate(id: string, date: string) {
 </script>
 
 <template>
-	<div class="w-full max-w-md rounded-2xl border border-slate-200 p-6">
+	<div class="w-full max-w-md rounded-sm border border-slate-200 p-6">
 		<div class="mb-6 flex items-center justify-between">
 			<button @click="previousMonth" class="rounded-lg p-2 hover:bg-slate-100">
 				←

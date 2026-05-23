@@ -33,7 +33,7 @@ const color = computed(() => {
 				<ArrowLeft class="size-4" /> Back
 			</button>
 		</RouterLink>
-		<div class="flex gap-8 mt-8">
+		<div class="flex justify-center gap-8 mt-8">
 			<div class="flex flex-col gap-5 w-5/12">
 				<div class="border border-slate-200 rounded-sm py-6 px-4">
 					<div class="flex gap-4">
@@ -92,17 +92,10 @@ const color = computed(() => {
 					</div>
 				</div>
 			</div>
-			<div class="flex flex-col gap-5 grow">
-				<div class="border border-slate-200 rounded-sm py-6 px-4">
-					<Calendar
-						:completedDates="selectedHabit?.completedDates!"
-						:id="selectedHabit?.id!"
-					/>
-				</div>
-				<div
-					class="flex items-center justify-around border border-slate-200 rounded-sm py-6 px-4"
-				></div>
-			</div>
+			<Calendar
+				:completedDates="selectedHabit?.completedDates!"
+				:id="selectedHabit?.id!"
+			/>
 		</div>
 	</section>
 </template>
