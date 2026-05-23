@@ -28,7 +28,8 @@ onBeforeMount(() => {
 });
 
 function handleInputChange() {
-	store.toggleTodayCompletion(habit.id);
+	const today = new Date(Date.now()).toISOString().slice(0, 10);
+	store.toggleCompletion(habit.id, today);
 	const toast = useToast();
 	if (completedToday.value) {
 		toast.success('Habit completed!');

@@ -1,9 +1,13 @@
 <script setup lang="ts">
+import { useHabitsStore } from '@/stores/habits';
 import type { ICalendarDay } from '@/types';
 import { computed, ref } from 'vue';
+import { useToast } from 'vue-toastification';
 
-const props = defineProps<{ completedDates: string[] }>();
+const props = defineProps<{ completedDates: string[]; id: string }>();
+const store = useHabitsStore();
 const currentDate = ref(new Date());
+const toast = useToast();
 const weekDays = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
 
 function formatDate(date: Date): string {
@@ -48,7 +52,6 @@ function generateCalendarDays(
 
 		i++;
 
-		// Stop after full last week rendered
 		if (i >= 35 && date.getMonth() !== month && date.getDay() === 0) {
 			break;
 		}
@@ -78,11 +81,18 @@ function previousMonth() {
 		currentDate.value.getMonth() - 1,
 	);
 }
+
+function handleToggleDate(id: string, date: string) {
+	const error = store.toggleCompletion(id, date);
+
+	if (error) {
+		toast.error(error);
+	}
+}
 </script>
 
 <template>
 	<div class="w-full max-w-md rounded-2xl border border-slate-200 p-6">
-		<!-- Header -->
 		<div class="mb-6 flex items-center justify-between">
 			<button @click="previousMonth" class="rounded-lg p-2 hover:bg-slate-100">
 				←
@@ -101,20 +111,17 @@ function previousMonth() {
 				→
 			</button>
 		</div>
-
-		<!-- Weekdays -->
 		<div class="mb-4 grid grid-cols-7 text-center text-sm text-slate-400">
 			<div v-for="day in weekDays" :key="day">
 				{{ day }}
 			</div>
 		</div>
-
-		<!-- Calendar -->
 		<div class="grid grid-cols-7 gap-2">
 			<div
 				v-for="day in calendarDays"
 				:key="day.date"
-				class="flex size-10 items-center justify-center rounded-full text-sm transition-colors"
+				@click="handleToggleDate(id, day.date)"
+				class="flex size-10 items-center justify-center rounded-full text-sm transition-colors cursor-pointer hover:border-main"
 				:class="[
 					day.completed
 						? 'bg-green-500 text-white border-green-500'

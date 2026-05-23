@@ -94,7 +94,10 @@ const color = computed(() => {
 			</div>
 			<div class="flex flex-col gap-5 grow">
 				<div class="border border-slate-200 rounded-sm py-6 px-4">
-					<Calendar :completedDates="selectedHabit?.completedDates!" />
+					<Calendar
+						:completedDates="selectedHabit?.completedDates!"
+						:id="selectedHabit?.id!"
+					/>
 				</div>
 				<div
 					class="flex items-center justify-around border border-slate-200 rounded-sm py-6 px-4"

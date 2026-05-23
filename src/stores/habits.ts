@@ -40,18 +40,29 @@ export const useHabitsStore = defineStore('habits', () => {
 		Object.assign(selectedHabit, updates);
 	}
 
-	function toggleTodayCompletion(id: string): void {
+	function toggleCompletion(id: string, date: string) {
 		const habit = habits.value.find(item => item.id === id);
 
 		if (!habit) return;
 
-		if (habit.completedDates.includes(getTodayDate())) {
-			habit.completedDates = habit.completedDates.filter(
-				date => date !== getTodayDate(),
-			);
-		} else {
-			habit.completedDates.push(getTodayDate());
+		const createdAtDate = new Date(habit.createdAt);
+		const toggledDate = new Date(date);
+
+		if (toggledDate.getTime() < createdAtDate.getTime()) {
+			return 'The habit did not exist on this date.';
 		}
+
+		if (toggledDate.getTime() > new Date(getTodayDate()).getTime()) {
+			return 'Are you from the future?';
+		}
+
+		if (habit.completedDates.includes(date)) {
+			habit.completedDates = habit.completedDates.filter(item => item !== date);
+		} else {
+			habit.completedDates.push(date);
+		}
+
+		return null;
 	}
 
 	function calculateCurrentStreak(completedDays: string[]): number {
@@ -198,7 +209,7 @@ export const useHabitsStore = defineStore('habits', () => {
 		addHabit,
 		removeHabit,
 		editHabit,
-		toggleTodayCompletion,
+		toggleCompletion,
 		getHabitStreak,
 		getBestStreak,
 		countHabitsCompletedToday,
