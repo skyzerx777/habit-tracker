@@ -16,7 +16,7 @@ const periodOfTheDay = computed(() => {
 	<section>
 		<h2 class="font-semibold">Good {{ periodOfTheDay }}! &#128075;</h2>
 		<p class="text-slate-800">Let's build some great habits today.</p>
-		<div class="flex justify-around mt-8">
+		<div class="flex justify-center gap-8 mt-8">
 			<HabitList />
 			<DashboardChartsSection />
 		</div>

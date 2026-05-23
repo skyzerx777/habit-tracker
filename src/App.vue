@@ -4,8 +4,10 @@ import '/src/App.css';
 </script>
 
 <template>
-	<Navbar />
-	<main class="bg-slate-50 px-20 py-8 min-h-screen">
-		<RouterView />
-	</main>
+	<div class="flex min-h-screen flex-col">
+		<Navbar />
+		<main class="flex-1 bg-slate-50 px-20 py-8">
+			<RouterView />
+		</main>
+	</div>
 </template>
