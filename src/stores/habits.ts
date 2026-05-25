@@ -1,9 +1,9 @@
 import type { IHabit } from '@/types';
+import { useLocalStorage } from '@vueuse/core';
 import { defineStore } from 'pinia';
-import { ref } from 'vue';
 
 export const useHabitsStore = defineStore('habits', () => {
-	const habits = ref<IHabit[]>([]);
+	const habits = useLocalStorage<IHabit[]>('habits', []);
 
 	function getTodayDate(): string {
 		return new Date().toISOString().slice(0, 10);
