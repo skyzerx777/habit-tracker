@@ -30,13 +30,23 @@ const cardsInfo = computed(() => [
 </script>
 
 <template>
-	<section>
-		<div class="flex flex-col gap-4">
-			<div class="flex justify-between gap-4">
-				<DashboardCard v-for="item in cardsInfo" :item />
+	<section class="flex flex-col gap-6">
+		<div class="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-3">
+			<DashboardCard v-for="item in cardsInfo" :key="item.text" :item="item" />
+		</div>
+		<div
+			class="rounded-3xl border border-slate-200 bg-white p-5 shadow-sm md:p-6"
+		>
+			<div
+				class="mb-6 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between"
+			>
+				<div>
+					<h3 class="text-lg font-semibold">Completion Analytics</h3>
+					<p class="text-sm text-slate-500">Track your consistency over time</p>
+				</div>
 			</div>
-			<div class="h-64 w-full border border-slate-200 rounded-sm">
-				<CompletionRateChart />
+			<div class="h-80 w-full md:h-105">
+				<CompletionRateChart :show-controls="false" default-range="week" />
 			</div>
 		</div>
 	</section>

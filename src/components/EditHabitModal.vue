@@ -63,7 +63,6 @@ function handleCancel() {
 		<Pencil class="size-5" />
 		Edit
 	</button>
-
 	<Teleport to="body">
 		<TransitionRoot :show="isModalOpen" as="template">
 			<Dialog @close="isModalOpen = false" class="fixed inset-0 z-50">

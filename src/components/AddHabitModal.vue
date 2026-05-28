@@ -69,7 +69,6 @@ function handleCancel() {
 	>
 		+ Add habit
 	</button>
-
 	<Teleport to="body">
 		<TransitionRoot :show="isModalOpen" as="template">
 			<Dialog @close="isModalOpen = false" class="fixed inset-0 z-50">

@@ -4,9 +4,11 @@ import '/src/App.css';
 </script>
 
 <template>
-	<div class="flex min-h-screen flex-col">
+	<div class="min-h-screen bg-slate-100 text-slate-900">
 		<Navbar />
-		<main class="flex flex-1 bg-slate-50 px-20 py-8">
+		<main
+			class="mx-auto flex w-full max-w-7xl flex-1 px-4 py-4 md:px-6 lg:px-8"
+		>
 			<RouterView />
 		</main>
 	</div>
