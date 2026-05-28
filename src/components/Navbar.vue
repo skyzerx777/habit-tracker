@@ -23,7 +23,6 @@ import AddHabitModal from './AddHabitModal.vue';
 					<p class="text-xs text-slate-500">Build consistency every day</p>
 				</div>
 			</div>
-
 			<ul class="flex items-center gap-8 text-sm font-medium">
 				<li>
 					<RouterLink
@@ -34,7 +33,6 @@ import AddHabitModal from './AddHabitModal.vue';
 						Dashboard
 					</RouterLink>
 				</li>
-
 				<li>
 					<RouterLink
 						to="/stats"
@@ -45,7 +43,6 @@ import AddHabitModal from './AddHabitModal.vue';
 					</RouterLink>
 				</li>
 			</ul>
-
 			<AddHabitModal />
 		</nav>
 	</header>
@@ -69,7 +66,6 @@ import AddHabitModal from './AddHabitModal.vue';
 				<li>
 					<AddHabitModal />
 				</li>
-
 				<li>
 					<RouterLink
 						to="/stats"
