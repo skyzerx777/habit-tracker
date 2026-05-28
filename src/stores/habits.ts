@@ -258,6 +258,32 @@ export const useHabitsStore = defineStore('habits', () => {
 		return dates;
 	}
 
+	function getTopHabits(limit = 3) {
+		return [...habits.value]
+			.sort(
+				(a, b) => getHabitCompletionRate(b.id) - getHabitCompletionRate(a.id),
+			)
+			.slice(0, limit)
+			.map(habit => ({
+				...habit,
+				rate: getHabitCompletionRate(habit.id),
+			}));
+	}
+
+	function getLongestStreakHabits(limit = 3) {
+		return [...habits.value]
+			.sort(
+				(a, b) =>
+					calculateBestStreak(b.completedDates) -
+					calculateBestStreak(a.completedDates),
+			)
+			.slice(0, limit)
+			.map(habit => ({
+				...habit,
+				streak: calculateBestStreak(habit.completedDates),
+			}));
+	}
+
 	return {
 		habits,
 		addHabit,
@@ -273,5 +299,7 @@ export const useHabitsStore = defineStore('habits', () => {
 		getTotalHabits,
 		getCompletionRatesBetweenDates,
 		getDatesBetween,
+		getTopHabits,
+		getLongestStreakHabits,
 	};
 });

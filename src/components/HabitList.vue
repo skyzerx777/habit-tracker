@@ -13,30 +13,41 @@ const progressBarWidth = computed(() => {
 </script>
 
 <template>
-	<div class="w-2/5 shrink-0 border border-slate-200 rounded-sm py-6 px-4">
-		<div class="flex justify-between">
-			<p>Today</p>
-			<p>
-				{{ store.habits.length }} habit{{
-					store.habits.length !== 1 ? 's' : ''
-				}}
-			</p>
-		</div>
-		<div class="flex justify-between">
-			<p>
-				{{
-					store.getHabitsCompletedToday() +
-					(store.habits.length ? `/${store.habits.length}` : '')
-				}}
-				completed
-			</p>
-			<div class="w-7/10 bg-slate-200 h-1 rounded-full">
+	<div
+		class="rounded-3xl border border-slate-200 bg-white p-5 shadow-sm md:p-6"
+	>
+		<div class="mb-6">
+			<div class="flex items-center justify-between">
+				<h3 class="text-lg font-semibold">Today's Progress</h3>
+
+				<p class="text-sm text-slate-500">
+					{{ store.habits.length }} habit{{
+						store.habits.length !== 1 ? 's' : ''
+					}}
+				</p>
+			</div>
+
+			<div class="mt-4 flex items-center justify-between">
+				<p class="text-sm font-medium text-slate-600">
+					{{ store.getHabitsCompletedToday() }}/{{ store.habits.length }}
+					completed
+				</p>
+
+				<p class="text-sm font-semibold text-main">
+					{{ Math.round(parseFloat(progressBarWidth)) }}%
+				</p>
+			</div>
+
+			<div class="mt-3 h-2 overflow-hidden rounded-full bg-slate-100">
 				<div
-					class="bg-main h-full rounded-full transition-all duration-300"
+					class="h-full rounded-full bg-main transition-all duration-500"
 					:style="{ width: progressBarWidth }"
 				></div>
 			</div>
 		</div>
-		<Habit v-for="habit in store.habits" :key="habit.id" :habit />
+
+		<div class="flex flex-col gap-4">
+			<Habit v-for="habit in store.habits" :key="habit.id" :habit />
+		</div>
 	</div>
 </template>

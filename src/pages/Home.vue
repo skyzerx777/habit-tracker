@@ -13,10 +13,16 @@ const periodOfTheDay = computed(() => {
 </script>
 
 <template>
-	<section class="flex flex-1 flex-col">
-		<h2 class="font-semibold">Good {{ periodOfTheDay }}! &#128075;</h2>
-		<p class="text-slate-800">Let's build some great habits today.</p>
-		<div class="flex justify-center gap-8 mt-8">
+	<section class="flex w-full flex-col pb-24 md:pb-0">
+		<div class="mb-6">
+			<h2 class="text-3xl font-bold tracking-tight">
+				Good {{ periodOfTheDay }}! &#128075;
+			</h2>
+
+			<p class="mt-1 text-slate-500">Let's build some great habits today.</p>
+		</div>
+
+		<div class="grid grid-cols-1 gap-6 xl:grid-cols-[380px_1fr]">
 			<HabitList />
 			<DashboardChartsSection />
 		</div>
