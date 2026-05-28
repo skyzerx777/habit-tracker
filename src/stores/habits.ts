@@ -21,7 +21,7 @@ export const useHabitsStore = defineStore('habits', () => {
 			description,
 			icon,
 			color,
-			createdAt: new Date(Date.now()).toISOString().slice(0, 10),
+			createdAt: new Date().toISOString().slice(0, 10),
 			completedDates: [],
 		});
 	}
@@ -145,15 +145,15 @@ export const useHabitsStore = defineStore('habits', () => {
 		return calculateCurrentStreak(habit.completedDates);
 	}
 
-	function getBestStreak(): string {
-		if (!habits.value.length) return '0';
+	function getBestStreak(): number {
+		if (!habits.value.length) return 0;
 
 		return Math.max(
 			...habits.value.map(habit => calculateBestStreak(habit.completedDates)),
-		).toString();
+		);
 	}
 
-	function countHabitsCompletedToday(): number {
+	function getHabitsCompletedToday(): number {
 		let habitsCompletedToday = habits.value.reduce((accumulator, curr) => {
 			return curr.completedDates.includes(getTodayDate())
 				? ++accumulator
@@ -163,12 +163,10 @@ export const useHabitsStore = defineStore('habits', () => {
 		return habitsCompletedToday;
 	}
 
-	function getCompletedHabitsNumber(): string {
-		return habits.value
-			.reduce((total, habit) => {
-				return total + habit.completedDates.length;
-			}, 0)
-			.toString();
+	function getCompletedHabitsNumber(): number {
+		return habits.value.reduce((total, habit) => {
+			return total + habit.completedDates.length;
+		}, 0);
 	}
 
 	function getHabitCompletionRate(id: string): number {
@@ -204,6 +202,62 @@ export const useHabitsStore = defineStore('habits', () => {
 		);
 	}
 
+	function getTotalHabits() {
+		return habits.value.length;
+	}
+
+	function formatDate(date: Date): string {
+		return date.toISOString().slice(0, 10);
+	}
+
+	function getCompletionRatesBetweenDates(
+		startDate: string,
+		endDate: string,
+	): number[] {
+		const rates: number[] = [];
+
+		const current = new Date(startDate);
+		const end = new Date(endDate);
+
+		while (current <= end) {
+			const formattedDate = formatDate(current);
+
+			const completedHabits = habits.value.filter(habit =>
+				habit.completedDates.includes(formattedDate),
+			).length;
+
+			const rate = habits.value.length
+				? Math.round((completedHabits / habits.value.length) * 100)
+				: 0;
+
+			rates.push(rate);
+
+			current.setDate(current.getDate() + 1);
+		}
+
+		return rates;
+	}
+
+	function getDatesBetween(startDate: string, endDate: string): string[] {
+		const dates: string[] = [];
+
+		const current = new Date(startDate);
+		const end = new Date(endDate);
+
+		while (current <= end) {
+			dates.push(
+				current.toLocaleDateString('en-US', {
+					month: 'short',
+					day: 'numeric',
+				}),
+			);
+
+			current.setDate(current.getDate() + 1);
+		}
+
+		return dates;
+	}
+
 	return {
 		habits,
 		addHabit,
@@ -212,9 +266,12 @@ export const useHabitsStore = defineStore('habits', () => {
 		toggleCompletion,
 		getHabitStreak,
 		getBestStreak,
-		countHabitsCompletedToday,
+		getHabitsCompletedToday,
 		getCompletedHabitsNumber,
 		getHabitCompletionRate,
 		getAverageCompletionRate,
+		getTotalHabits,
+		getCompletionRatesBetweenDates,
+		getDatesBetween,
 	};
 });

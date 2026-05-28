@@ -27,7 +27,7 @@ const color = computed(() => {
 </script>
 
 <template>
-	<section>
+	<section class="flex flex-1 flex-col">
 		<RouterLink to="/">
 			<button class="flex gap-1 items-center cursor-pointer">
 				<ArrowLeft class="size-4" /> Back

@@ -8,7 +8,7 @@ const store = useHabitsStore();
 const progressBarWidth = computed(() => {
 	if (!store.habits.length) return '0%';
 
-	return `${(store.countHabitsCompletedToday() / store.habits.length) * 100}%`;
+	return `${(store.getHabitsCompletedToday() / store.habits.length) * 100}%`;
 });
 </script>
 
@@ -25,7 +25,7 @@ const progressBarWidth = computed(() => {
 		<div class="flex justify-between">
 			<p>
 				{{
-					store.countHabitsCompletedToday() +
+					store.getHabitsCompletedToday() +
 					(store.habits.length ? `/${store.habits.length}` : '')
 				}}
 				completed

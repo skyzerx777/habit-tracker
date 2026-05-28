@@ -3,7 +3,7 @@ import DashboardChartsSection from '@/components/DashboardChartsSection.vue';
 import HabitList from '@/components/HabitList.vue';
 import { computed } from 'vue';
 
-const currentTime = new Date(Date.now()).getHours();
+const currentTime = new Date().getHours();
 
 const periodOfTheDay = computed(() => {
 	if (currentTime < 12) return 'morning';
@@ -13,7 +13,7 @@ const periodOfTheDay = computed(() => {
 </script>
 
 <template>
-	<section>
+	<section class="flex flex-1 flex-col">
 		<h2 class="font-semibold">Good {{ periodOfTheDay }}! &#128075;</h2>
 		<p class="text-slate-800">Let's build some great habits today.</p>
 		<div class="flex justify-center gap-8 mt-8">

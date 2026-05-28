@@ -6,7 +6,7 @@ import '/src/App.css';
 <template>
 	<div class="flex min-h-screen flex-col">
 		<Navbar />
-		<main class="flex-1 bg-slate-50 px-20 py-8">
+		<main class="flex flex-1 bg-slate-50 px-20 py-8">
 			<RouterView />
 		</main>
 	</div>

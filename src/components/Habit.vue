@@ -21,14 +21,14 @@ const color = computed(() => {
 });
 
 onBeforeMount(() => {
-	const today = new Date(Date.now()).toISOString().slice(0, 10);
+	const today = new Date().toISOString().slice(0, 10);
 	if (habit.completedDates.includes(today)) {
 		completedToday.value = true;
 	}
 });
 
 function handleInputChange() {
-	const today = new Date(Date.now()).toISOString().slice(0, 10);
+	const today = new Date().toISOString().slice(0, 10);
 	store.toggleCompletion(habit.id, today);
 	const toast = useToast();
 	if (completedToday.value) {
