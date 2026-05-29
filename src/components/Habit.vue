@@ -44,7 +44,7 @@ const completedToday = computed({
 
 <template>
 	<div
-		class="group flex items-center justify-between rounded-2xl border border-slate-200 bg-white p-4 shadow-sm transition-all duration-200 hover:border-main/30 hover:shadow-md"
+		class="group flex items-center justify-between rounded-2xl border border-slate-200 bg-white p-4 shadow-sm transition-all duration-200 hover:border-main/30 hover:shadow-md min-h-[5.8rem]"
 	>
 		<RouterLink
 			:to="`/details/${habit.id}`"

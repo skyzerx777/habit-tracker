@@ -30,7 +30,7 @@ const cardsInfo = computed(() => [
 </script>
 
 <template>
-	<section class="flex flex-col gap-6">
+	<section class="flex flex-col justify-between">
 		<div class="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-3">
 			<DashboardCard v-for="item in cardsInfo" :key="item.text" :item="item" />
 		</div>

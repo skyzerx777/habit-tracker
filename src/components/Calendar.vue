@@ -5,9 +5,11 @@ import { computed, ref } from 'vue';
 import { useToast } from 'vue-toastification';
 
 const props = defineProps<{ completedDates: string[]; id: string }>();
+
 const store = useHabitsStore();
 const currentDate = ref(new Date());
 const toast = useToast();
+
 const weekDays = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
 
 function formatDate(date: Date): string {
@@ -87,18 +89,27 @@ function handleToggleDate(id: string, date: string) {
 
 	if (error) {
 		toast.error(error);
+
+		return;
 	}
+
+	toast.success('Date updated.');
 }
 </script>
 
 <template>
-	<div class="w-full max-w-md rounded-sm border border-slate-200 p-6">
+	<div
+		class="w-full rounded-3xl border border-slate-200 bg-white p-4 shadow-sm md:p-6"
+	>
 		<div class="mb-6 flex items-center justify-between">
-			<button @click="previousMonth" class="rounded-lg p-2 hover:bg-slate-100">
+			<button
+				@click="previousMonth"
+				class="flex size-10 items-center justify-center rounded-2xl transition-all duration-200 hover:bg-slate-100"
+			>
 				←
 			</button>
 
-			<h2 class="text-lg font-semibold">
+			<h2 class="text-lg font-bold text-slate-900">
 				{{
 					currentDate.toLocaleString('en-US', {
 						month: 'long',
@@ -107,29 +118,36 @@ function handleToggleDate(id: string, date: string) {
 				}}
 			</h2>
 
-			<button @click="nextMonth" class="rounded-lg p-2 hover:bg-slate-100">
+			<button
+				@click="nextMonth"
+				class="flex size-10 items-center justify-center rounded-2xl transition-all duration-200 hover:bg-slate-100"
+			>
 				→
 			</button>
 		</div>
-		<div class="mb-4 grid grid-cols-7 text-center text-sm text-slate-400">
+
+		<div
+			class="mb-4 grid grid-cols-7 text-center text-xs font-medium uppercase tracking-wide text-slate-400"
+		>
 			<div v-for="day in weekDays" :key="day">
 				{{ day }}
 			</div>
 		</div>
+
 		<div class="grid grid-cols-7 gap-2">
 			<div
 				v-for="day in calendarDays"
 				:key="day.date"
 				@click="handleToggleDate(id, day.date)"
-				class="flex size-10 items-center justify-center rounded-full text-sm transition-colors cursor-pointer hover:border-main"
+				class="flex aspect-square cursor-pointer items-center justify-center rounded-2xl text-sm font-medium transition-all duration-200"
 				:class="[
 					day.completed
-						? 'bg-green-500 text-white border-green-500'
-						: 'border border-slate-200',
+						? 'bg-main text-white shadow-sm'
+						: 'border border-slate-200 bg-white hover:border-main hover:bg-main/5',
 
-					!day.currentMonth ? 'text-slate-300' : 'text-slate-700',
+					!day.currentMonth ? 'opacity-40' : '',
 
-					day.today ? 'ring-2 ring-green-500' : '',
+					day.today && !day.completed ? 'ring-2 ring-main ring-offset-2' : '',
 				]"
 			>
 				{{ day.dayNumber }}

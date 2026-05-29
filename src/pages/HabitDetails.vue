@@ -19,83 +19,113 @@ const selectedHabit = computed(() =>
 );
 
 const icon = computed(() => {
-	return HABIT_ICONS.find(item => item.value === selectedHabit.value!.icon);
+	return HABIT_ICONS.find(item => item.value === selectedHabit.value?.icon);
 });
+
 const color = computed(() => {
-	return HABIT_COLORS.find(item => item.value === selectedHabit.value!.color);
+	return HABIT_COLORS.find(item => item.value === selectedHabit.value?.color);
 });
 </script>
 
 <template>
-	<section class="flex flex-1 flex-col">
-		<RouterLink to="/">
-			<button class="flex gap-1 items-center cursor-pointer">
-				<ArrowLeft class="size-4" /> Back
-			</button>
+	<section class="flex w-full flex-col gap-6">
+		<RouterLink
+			to="/"
+			class="flex w-fit items-center gap-2 rounded-xl px-3 py-2 text-slate-500 transition-all duration-200 hover:bg-white hover:text-main"
+		>
+			<ArrowLeft class="size-4" />
+			Back
 		</RouterLink>
-		<div class="flex justify-center gap-8 mt-8">
-			<div class="flex flex-col gap-5 w-5/12">
-				<div class="border border-slate-200 rounded-sm py-6 px-4">
-					<div class="flex gap-4">
-						<component
-							:is="icon?.icon"
-							:class="`${color?.textClass} box-content size-10 p-3 bg-main/5 rounded-full`"
-						></component>
-						<div class="flex flex-col gap-2">
-							<h2 class="font-bold text-xl">{{ selectedHabit?.name }}</h2>
-							<p class="flex items-center gap-1">
-								<Flame class="size-4 text-orange-500" />
-								<span class="text-slate-500 text-sm"
-									>{{ store.getHabitStreak(selectedHabit?.id!) }} day streak
-								</span>
-							</p>
-							<p class="text-slate-600 text-sm min-h-20">
-								{{ selectedHabit?.description }}
-							</p>
+
+		<div class="flex flex-col gap-6 xl:flex-row">
+			<div class="flex flex-1 flex-col gap-6">
+				<div class="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">
+					<div
+						class="flex flex-col gap-6 sm:flex-row sm:items-start sm:justify-between"
+					>
+						<div class="flex gap-4">
+							<div
+								:class="`${color?.bgClass} flex size-18 shrink-0 items-center justify-center rounded-3xl`"
+							>
+								<component :is="icon?.icon" class="size-9 text-white" />
+							</div>
+
+							<div>
+								<h1 class="text-2xl font-bold text-slate-900">
+									{{ selectedHabit?.name }}
+								</h1>
+
+								<div
+									class="mt-2 flex items-center gap-2 text-sm text-slate-500"
+								>
+									<Flame class="size-4 text-orange-500" />
+									{{ store.getHabitStreak(selectedHabit?.id!) }}
+									day streak
+								</div>
+
+								<p class="mt-4 max-w-2xl leading-relaxed text-slate-600">
+									{{ selectedHabit?.description || 'No description provided.' }}
+								</p>
+							</div>
 						</div>
-					</div>
-					<div class="flex justify-around h-12">
-						<EditHabitModal :habitId="selectedHabit?.id!" />
-						<RemoveHabitModal :habitId="selectedHabit?.id!" />
+
+						<div class="flex gap-3">
+							<EditHabitModal :habitId="selectedHabit?.id!" />
+							<RemoveHabitModal :habitId="selectedHabit?.id!" />
+						</div>
 					</div>
 				</div>
-				<div
-					class="flex items-center justify-around border border-slate-200 rounded-sm py-6 px-4"
-				>
+
+				<div class="grid grid-cols-1 gap-4 md:grid-cols-2">
 					<div
-						class="flex items-center justify-center w-1/2 gap-2 border-r border-slate-200"
+						class="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm"
 					>
-						<div
-							class="flex justify-center items-center box-border bg-main/5 size-14 rounded-sm"
-						>
-							<TrendingUp class="text-main" />
-						</div>
-						<div>
-							<h3 class="font-medium text-xl">
-								{{ store.getHabitCompletionRate(selectedHabit?.id!) }}%
-							</h3>
-							<p class="text-slate-500">Completion Rate</p>
+						<div class="flex items-center gap-4">
+							<div
+								class="flex size-14 items-center justify-center rounded-2xl bg-main/10"
+							>
+								<TrendingUp class="text-main" />
+							</div>
+
+							<div>
+								<h3 class="text-2xl font-bold text-slate-900">
+									{{ store.getHabitCompletionRate(selectedHabit?.id!) }}%
+								</h3>
+
+								<p class="text-sm text-slate-500">Completion Rate</p>
+							</div>
 						</div>
 					</div>
-					<div class="flex justify-center items-center w-1/2 gap-2">
-						<div
-							class="flex justify-center items-center bg-orange-500/5 size-14 rounded-sm box-border"
-						>
-							<Trophy class="text-orange-500" />
-						</div>
-						<div>
-							<h3 class="font-medium text-xl">
-								{{ store.getHabitStreak(selectedHabit?.id!) }} days
-							</h3>
-							<p class="text-slate-500">Best Streak</p>
+
+					<div
+						class="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm"
+					>
+						<div class="flex items-center gap-4">
+							<div
+								class="flex size-14 items-center justify-center rounded-2xl bg-orange-100"
+							>
+								<Trophy class="text-orange-500" />
+							</div>
+
+							<div>
+								<h3 class="text-2xl font-bold text-slate-900">
+									{{ store.getHabitStreak(selectedHabit?.id!) }}
+									days
+								</h3>
+
+								<p class="text-sm text-slate-500">Best Streak</p>
+							</div>
 						</div>
 					</div>
 				</div>
 			</div>
-			<Calendar
-				:completedDates="selectedHabit?.completedDates!"
-				:id="selectedHabit?.id!"
-			/>
+
+			<div class="xl:w-105">
+				<Calendar
+					:completedDates="selectedHabit?.completedDates!"
+					:id="selectedHabit?.id!"
+				/>
+			</div>
 		</div>
 	</section>
 </template>

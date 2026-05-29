@@ -16,21 +16,21 @@ const cardsInfo = computed(() => [
 	},
 	{
 		counter: `${store.getAverageCompletionRate()}%`,
-		text: 'Avg. Completion Rate',
+		text: 'Avg. Completion',
 		icon: TrendingUp,
-		textColor: 'text-green-400',
+		textColor: 'text-green-500',
 	},
 	{
 		counter: `${store.getBestStreak()}`,
 		text: 'Best Streak',
 		icon: Flame,
-		textColor: 'text-orange-400',
+		textColor: 'text-orange-500',
 	},
 	{
 		counter: `${store.getTotalHabits()}`,
 		text: 'Total Habits',
 		icon: ListCheck,
-		textColor: 'text-blue-400',
+		textColor: 'text-blue-500',
 	},
 ]);
 
@@ -41,30 +41,26 @@ const longestStreaks = computed(() => store.getLongestStreakHabits());
 
 <template>
 	<section class="flex flex-1 flex-col gap-6">
-		<div class="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-4">
-			<DashboardCard v-for="item in cardsInfo" :key="item.text" :item="item" />
+		<div class="grid grid-cols-1 gap-4 sm:grid-cols-2 2xl:grid-cols-4">
+			<DashboardCard v-for="item in cardsInfo" :key="item.text" :item />
 		</div>
-		<div
-			class="rounded-3xl border border-slate-200 bg-white p-4 shadow-sm md:p-6"
-		>
+
+		<div class="rounded-3xl border border-slate-200 bg-white p-5 shadow-sm">
 			<div class="mb-5">
-				<h2 class="text-lg font-semibold text-slate-900">
-					Weekly Completion Rate
-				</h2>
-				<p class="text-sm text-slate-500">
-					Track your habit consistency for the last 7 days
-				</p>
+				<h2 class="text-lg font-bold text-slate-900">Completion Overview</h2>
+
+				<p class="text-sm text-slate-500">Last 7 days performance</p>
 			</div>
-			<div class="h-80 md:h-105">
-				<CompletionRateChart :show-controls="false" default-range="week" />
+
+			<div class="h-[320px]">
+				<CompletionRateChart />
 			</div>
 		</div>
+
 		<div class="grid grid-cols-1 gap-6 xl:grid-cols-2">
 			<div class="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">
-				<div class="mb-6">
-					<h2 class="text-lg font-semibold text-slate-900">Top Habits</h2>
-					<p class="text-sm text-slate-500">Highest completion rate habits</p>
-				</div>
+				<h2 class="mb-6 text-lg font-bold">Top Habits</h2>
+
 				<div class="flex flex-col gap-5">
 					<div
 						v-for="(habit, index) in topHabits"
@@ -72,21 +68,23 @@ const longestStreaks = computed(() => store.getLongestStreakHabits());
 						class="flex items-center gap-4"
 					>
 						<div
-							class="flex size-7 shrink-0 items-center justify-center rounded-full bg-slate-100 text-xs font-medium text-slate-500"
+							class="flex size-7 items-center justify-center rounded-full bg-slate-100 text-sm font-medium"
 						>
 							{{ index + 1 }}
 						</div>
+
 						<div class="min-w-0 flex-1">
-							<div class="mb-2 flex items-center justify-between gap-3">
-								<p class="truncate text-sm font-medium text-slate-800">
+							<div class="mb-2 flex justify-between gap-4">
+								<p class="truncate text-sm font-medium">
 									{{ habit.name }}
 								</p>
 
 								<p class="text-sm font-semibold text-main">{{ habit.rate }}%</p>
 							</div>
+
 							<div class="h-2 overflow-hidden rounded-full bg-slate-100">
 								<div
-									class="h-full rounded-full bg-main transition-all duration-500"
+									class="h-full rounded-full bg-main"
 									:style="{ width: `${habit.rate}%` }"
 								/>
 							</div>
@@ -94,30 +92,30 @@ const longestStreaks = computed(() => store.getLongestStreakHabits());
 					</div>
 				</div>
 			</div>
+
 			<div class="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">
-				<div class="mb-6">
-					<h2 class="text-lg font-semibold text-slate-900">Longest Streaks</h2>
-					<p class="text-sm text-slate-500">Your most consistent habits</p>
-				</div>
-				<div class="flex flex-col gap-4">
+				<h2 class="mb-6 text-lg font-bold">Longest Streaks</h2>
+
+				<div class="flex flex-col gap-5">
 					<div
 						v-for="(habit, index) in longestStreaks"
 						:key="habit.id"
-						class="flex items-center justify-between rounded-2xl border border-slate-100 px-4 py-3 transition-colors hover:bg-slate-50"
+						class="flex items-center justify-between rounded-2xl bg-slate-50 px-4 py-3"
 					>
-						<div class="flex min-w-0 items-center gap-4">
+						<div class="flex items-center gap-4">
 							<div
-								class="flex size-7 shrink-0 items-center justify-center rounded-full bg-orange-100 text-xs font-medium text-orange-500"
+								class="flex size-7 items-center justify-center rounded-full bg-white text-sm font-medium"
 							>
 								{{ index + 1 }}
 							</div>
 
-							<p class="truncate text-sm font-medium text-slate-800">
+							<p class="font-medium text-slate-800">
 								{{ habit.name }}
 							</p>
 						</div>
+
 						<div
-							class="rounded-full bg-orange-50 px-3 py-1 text-sm font-medium text-orange-500"
+							class="rounded-full bg-orange-100 px-3 py-1 text-sm font-medium text-orange-600"
 						>
 							{{ habit.streak }} days
 						</div>

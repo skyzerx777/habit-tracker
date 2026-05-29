@@ -10,20 +10,27 @@ function goHome() {
 </script>
 
 <template>
-	<section class="flex h-full flex-col items-center justify-center px-6">
+	<section
+		class="flex min-h-[calc(100vh-73px)] w-full flex-col items-center justify-center px-6 text-center"
+	>
 		<div
-			class="flex size-20 items-center justify-center rounded-full bg-red-100 mb-6"
+			class="mb-6 flex size-24 items-center justify-center rounded-3xl bg-red-100 shadow-sm"
 		>
-			<TriangleAlert class="size-10 text-red-500" />
+			<TriangleAlert class="size-11 text-red-500" />
 		</div>
-		<h1 class="text-6xl font-bold text-slate-900 mb-2">404</h1>
-		<h2 class="text-2xl font-semibold text-slate-800 mb-3">Page not found</h2>
-		<p class="max-w-md text-center text-slate-500 mb-8">
-			The page you are looking for does not exist or may have been moved.
+
+		<h1 class="mb-2 text-7xl font-black tracking-tight text-slate-900">404</h1>
+
+		<h2 class="mb-3 text-3xl font-bold text-slate-800">Page not found</h2>
+
+		<p class="mb-8 max-w-md text-slate-500">
+			The page you are looking for does not exist, was moved, or may have been
+			deleted.
 		</p>
+
 		<button
 			@click="goHome"
-			class="flex items-center gap-2 cursor-pointer rounded-xl bg-main px-6 py-3 text-white transition-opacity hover:opacity-90"
+			class="flex items-center gap-2 rounded-2xl bg-main px-6 py-3 font-medium text-white shadow-sm transition-all duration-200 hover:-translate-y-0.5 hover:shadow-md"
 		>
 			<House class="size-5" />
 			Go Home

@@ -42,7 +42,7 @@ const progressBarWidth = computed(() => {
 				></div>
 			</div>
 		</div>
-		<div class="flex flex-col gap-4">
+		<div class="flex h-[34rem] flex-col gap-4 overflow-y-auto pr-2">
 			<Habit v-for="habit in store.habits" :key="habit.id" :habit />
 		</div>
 	</div>
