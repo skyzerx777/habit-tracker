@@ -57,7 +57,7 @@ const longestStreaks = computed(() => store.getLongestStreakHabits());
 			<div class="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">
 				<h2 class="mb-6 text-lg font-bold">Top Habits</h2>
 
-				<div class="flex flex-col gap-5">
+				<div v-if="topHabits.length" class="flex flex-col gap-5">
 					<div
 						v-for="(habit, index) in topHabits"
 						:key="habit.id"
@@ -85,10 +85,21 @@ const longestStreaks = computed(() => store.getLongestStreakHabits());
 						</div>
 					</div>
 				</div>
+				<div
+					v-else
+					class="flex h-32 items-center justify-center rounded-2xl border border-dashed border-slate-200 text-center"
+				>
+					<div>
+						<p class="font-medium text-slate-500">No habits yet</p>
+						<p class="mt-1 text-sm text-slate-400">
+							Create your first habit to see rankings.
+						</p>
+					</div>
+				</div>
 			</div>
 			<div class="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">
 				<h2 class="mb-6 text-lg font-bold">Longest Streaks</h2>
-				<div class="flex flex-col gap-5">
+				<div v-if="longestStreaks.length" class="flex flex-col gap-5">
 					<div
 						v-for="(habit, index) in longestStreaks"
 						:key="habit.id"
@@ -109,6 +120,17 @@ const longestStreaks = computed(() => store.getLongestStreakHabits());
 						>
 							{{ habit.streak }} days
 						</div>
+					</div>
+				</div>
+				<div
+					v-else
+					class="flex h-32 items-center justify-center rounded-2xl border border-dashed border-slate-200 text-center"
+				>
+					<div>
+						<p class="font-medium text-slate-500">No streak data</p>
+						<p class="mt-1 text-sm text-slate-400">
+							Complete habits to build streaks.
+						</p>
 					</div>
 				</div>
 			</div>
