@@ -98,6 +98,11 @@ const option = computed<EChartsOption>(() => ({
 
 	tooltip: {
 		trigger: 'axis',
+		formatter: (params: any) => {
+			const item = params[0];
+
+			return `<p class="text-[12px]">${item.axisValue}<br/> <span class="font-bold">${item.value}%</span></p>`;
+		},
 	},
 
 	grid: {
@@ -124,6 +129,9 @@ const option = computed<EChartsOption>(() => ({
 	yAxis: {
 		type: 'value',
 		max: 100,
+		axisLabel: {
+			formatter: '{value}%',
+		},
 
 		splitLine: {
 			lineStyle: {
