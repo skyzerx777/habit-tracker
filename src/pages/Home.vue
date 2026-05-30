@@ -18,7 +18,6 @@ const periodOfTheDay = computed(() => {
 			<h2 class="text-3xl font-bold tracking-tight">
 				Good {{ periodOfTheDay }}! &#128075;
 			</h2>
-
 			<p class="mt-1 text-slate-500">Let's build some great habits today.</p>
 		</div>
 		<div class="grid grid-cols-1 gap-6 xl:grid-cols-[380px_1fr]">

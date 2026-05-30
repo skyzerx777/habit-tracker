@@ -105,7 +105,7 @@ const option = computed<EChartsOption>(() => ({
 		right: 10,
 		top: 30,
 		bottom: 10,
-		containLabel: true,
+		outerBoundsMode: 'same',
 	},
 
 	xAxis: {
@@ -159,6 +159,7 @@ const option = computed<EChartsOption>(() => ({
 		>
 			<select
 				v-model="dateSelect"
+				name="chart-date-select"
 				class="rounded-xl border border-slate-200 bg-white px-4 py-2 text-sm outline-none transition focus:border-main"
 			>
 				<option value="week">Last week</option>
@@ -166,7 +167,6 @@ const option = computed<EChartsOption>(() => ({
 				<option value="year">Last year</option>
 				<option value="custom">Custom range</option>
 			</select>
-
 			<div
 				v-if="dateSelect === 'custom'"
 				class="flex flex-col gap-2 sm:flex-row"
@@ -176,7 +176,6 @@ const option = computed<EChartsOption>(() => ({
 					v-model="startDate"
 					class="rounded-xl border border-slate-200 px-4 py-2 text-sm outline-none focus:border-main"
 				/>
-
 				<input
 					type="date"
 					v-model="endDate"

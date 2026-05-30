@@ -67,7 +67,6 @@ function handleCancel() {
 		<Pencil class="size-4" />
 		Edit
 	</button>
-
 	<Teleport to="body">
 		<TransitionRoot :show="isModalOpen" as="template">
 			<Dialog @close="isModalOpen = false" class="relative z-50">
@@ -80,9 +79,8 @@ function handleCancel() {
 					leave-from="opacity-100"
 					leave-to="opacity-0"
 				>
-					<div class="fixed inset-0 bg-black/40 backdrop-blur-sm" />
+					<div class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm" />
 				</TransitionChild>
-
 				<div class="fixed inset-0 overflow-y-auto">
 					<div class="flex min-h-full items-center justify-center p-4">
 						<TransitionChild
@@ -103,7 +101,6 @@ function handleCancel() {
 									>
 										<Pencil class="size-7 text-main" />
 									</div>
-
 									<div>
 										<DialogTitle class="text-2xl font-bold text-slate-900">
 											Edit Habit
@@ -114,7 +111,6 @@ function handleCancel() {
 										</p>
 									</div>
 								</div>
-
 								<form
 									@submit.prevent="handleSubmit"
 									class="flex flex-col gap-5"
@@ -123,7 +119,6 @@ function handleCancel() {
 										<span class="mb-2 text-sm font-medium text-slate-700">
 											Habit Name
 										</span>
-
 										<input
 											ref="inputRef"
 											v-model="editedHabit.name"
@@ -132,25 +127,23 @@ function handleCancel() {
 											class="rounded-2xl border border-slate-200 px-4 py-3 outline-none transition-all duration-200 focus:border-main focus:ring-4 focus:ring-main/10"
 										/>
 									</label>
-
 									<label class="flex flex-col">
 										<span class="mb-2 text-sm font-medium text-slate-700">
 											Description
 										</span>
-
 										<textarea
 											v-model="editedHabit.description"
 											placeholder="Describe your habit..."
 											class="min-h-28 resize-none rounded-2xl border border-slate-200 px-4 py-3 outline-none transition-all duration-200 focus:border-main focus:ring-4 focus:ring-main/10"
 										/>
 									</label>
-
 									<div class="flex flex-col gap-4">
 										<p class="text-sm font-medium text-slate-700">
 											Choose Icon
 										</p>
-
-										<div class="flex flex-wrap gap-3">
+										<div
+											class="grid grid-cols-5 gap-3 sm:grid-cols-6 md:grid-cols-7"
+										>
 											<button
 												v-for="icon in HABIT_ICONS"
 												:key="icon.value"
@@ -166,12 +159,10 @@ function handleCancel() {
 											</button>
 										</div>
 									</div>
-
 									<div class="flex flex-col gap-4">
 										<p class="text-sm font-medium text-slate-700">
 											Choose Color
 										</p>
-
 										<div class="flex flex-wrap gap-3">
 											<button
 												v-for="color in HABIT_COLORS"
@@ -190,7 +181,6 @@ function handleCancel() {
 											</button>
 										</div>
 									</div>
-
 									<div
 										class="mt-2 flex flex-col-reverse gap-3 sm:flex-row sm:justify-end"
 									>

@@ -108,7 +108,6 @@ function handleToggleDate(id: string, date: string) {
 			>
 				←
 			</button>
-
 			<h2 class="text-lg font-bold text-slate-900">
 				{{
 					currentDate.toLocaleString('en-US', {
@@ -117,7 +116,6 @@ function handleToggleDate(id: string, date: string) {
 					})
 				}}
 			</h2>
-
 			<button
 				@click="nextMonth"
 				class="flex size-10 items-center justify-center rounded-2xl transition-all duration-200 hover:bg-slate-100"
@@ -125,7 +123,6 @@ function handleToggleDate(id: string, date: string) {
 				→
 			</button>
 		</div>
-
 		<div
 			class="mb-4 grid grid-cols-7 text-center text-xs font-medium uppercase tracking-wide text-slate-400"
 		>
@@ -133,7 +130,6 @@ function handleToggleDate(id: string, date: string) {
 				{{ day }}
 			</div>
 		</div>
-
 		<div class="grid grid-cols-7 gap-2">
 			<div
 				v-for="day in calendarDays"

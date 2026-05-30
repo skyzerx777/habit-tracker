@@ -79,9 +79,9 @@ function handleCancel() {
 	</button>
 	<button
 		@click="isModalOpen = true"
-		class="mx-auto flex size-14 -translate-y-5 items-center justify-center rounded-full bg-main text-white shadow-xl shadow-main/30 md:hidden"
+		class="mx-auto flex size-16 -translate-y-6 items-center justify-center rounded-full bg-main text-white shadow-xl shadow-main/30 md:hidden"
 	>
-		<Plus class="size-7" />
+		<Plus class="size-8" />
 	</button>
 	<Teleport to="body">
 		<TransitionRoot :show="isModalOpen" as="template">
@@ -176,7 +176,9 @@ function handleCancel() {
 										<p class="text-sm font-semibold text-slate-700">
 											Choose Icon
 										</p>
-										<div class="flex flex-wrap gap-3">
+										<div
+											class="grid grid-cols-5 gap-3 sm:grid-cols-6 md:grid-cols-7"
+										>
 											<button
 												v-for="icon in HABIT_ICONS"
 												:key="icon.value"

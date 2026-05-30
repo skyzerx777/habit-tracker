@@ -40,23 +40,19 @@ const longestStreaks = computed(() => store.getLongestStreakHabits());
 </script>
 
 <template>
-	<section class="flex flex-1 flex-col gap-6">
-		<div class="grid grid-cols-1 gap-4 sm:grid-cols-2 2xl:grid-cols-4">
-			<DashboardCard v-for="item in cardsInfo" :key="item.text" :item />
-		</div>
-
+	<section class="flex flex-1 flex-col gap-6 pb-24 md:pb-0">
 		<div class="rounded-3xl border border-slate-200 bg-white p-5 shadow-sm">
 			<div class="mb-5">
 				<h2 class="text-lg font-bold text-slate-900">Completion Overview</h2>
-
 				<p class="text-sm text-slate-500">Last 7 days performance</p>
 			</div>
-
-			<div class="h-[320px]">
+			<div class="h-65 md:h-80">
 				<CompletionRateChart />
 			</div>
 		</div>
-
+		<div class="grid grid-cols-1 gap-4 sm:grid-cols-2 2xl:grid-cols-4">
+			<DashboardCard v-for="item in cardsInfo" :key="item.text" :item />
+		</div>
 		<div class="grid grid-cols-1 gap-6 xl:grid-cols-2">
 			<div class="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">
 				<h2 class="mb-6 text-lg font-bold">Top Habits</h2>
@@ -72,13 +68,11 @@ const longestStreaks = computed(() => store.getLongestStreakHabits());
 						>
 							{{ index + 1 }}
 						</div>
-
 						<div class="min-w-0 flex-1">
 							<div class="mb-2 flex justify-between gap-4">
 								<p class="truncate text-sm font-medium">
 									{{ habit.name }}
 								</p>
-
 								<p class="text-sm font-semibold text-main">{{ habit.rate }}%</p>
 							</div>
 
@@ -92,10 +86,8 @@ const longestStreaks = computed(() => store.getLongestStreakHabits());
 					</div>
 				</div>
 			</div>
-
 			<div class="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">
 				<h2 class="mb-6 text-lg font-bold">Longest Streaks</h2>
-
 				<div class="flex flex-col gap-5">
 					<div
 						v-for="(habit, index) in longestStreaks"
@@ -108,12 +100,10 @@ const longestStreaks = computed(() => store.getLongestStreakHabits());
 							>
 								{{ index + 1 }}
 							</div>
-
 							<p class="font-medium text-slate-800">
 								{{ habit.name }}
 							</p>
 						</div>
-
 						<div
 							class="rounded-full bg-orange-100 px-3 py-1 text-sm font-medium text-orange-600"
 						>

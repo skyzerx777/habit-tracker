@@ -23,12 +23,12 @@ const store = useHabitsStore();
 function handleRemove(id: string): void {
 	isModalOpen.value = false;
 
-	setTimeout(() => {
+	setTimeout(async () => {
+		await router.push('/');
+
 		store.removeHabit(id);
 
 		toast.success('Habit deleted.');
-
-		router.push('/');
 	}, 200);
 }
 </script>
@@ -41,7 +41,6 @@ function handleRemove(id: string): void {
 		<Trash2 class="size-4" />
 		Remove
 	</button>
-
 	<Teleport to="body">
 		<TransitionRoot :show="isModalOpen" as="template">
 			<Dialog @close="isModalOpen = false" class="relative z-50">
@@ -54,9 +53,8 @@ function handleRemove(id: string): void {
 					leave-from="opacity-100"
 					leave-to="opacity-0"
 				>
-					<div class="fixed inset-0 bg-black/40 backdrop-blur-sm" />
+					<div class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm" />
 				</TransitionChild>
-
 				<div class="fixed inset-0 overflow-y-auto">
 					<div class="flex min-h-full items-center justify-center p-4">
 						<TransitionChild
@@ -77,11 +75,9 @@ function handleRemove(id: string): void {
 									>
 										<AlertTriangle class="size-9 text-red-500" />
 									</div>
-
 									<DialogTitle class="text-2xl font-bold text-slate-900">
 										Delete Habit?
 									</DialogTitle>
-
 									<DialogDescription
 										class="mt-2 text-sm leading-relaxed text-slate-500"
 									>
@@ -89,21 +85,19 @@ function handleRemove(id: string): void {
 										statistics will be permanently removed.
 									</DialogDescription>
 								</div>
-
-								<div class="flex flex-col-reverse gap-3 sm:flex-row">
-									<button
-										@click="isModalOpen = false"
-										class="h-12 flex-1 rounded-2xl border border-slate-200 font-medium text-slate-600 transition-all duration-200 hover:bg-slate-50 cursor-pointer"
-									>
-										Cancel
-									</button>
-
+								<div class="flex flex-col gap-3 sm:flex-row">
 									<button
 										@click="handleRemove(habitId)"
-										class="flex h-12 flex-1 items-center justify-center gap-2 rounded-2xl bg-red-500 font-medium text-white shadow-sm transition-all duration-200 hover:-translate-y-0.5 hover:bg-red-600 hover:shadow-md cursor-pointer"
+										class="flex min-h-12 w-full items-center justify-center gap-2 rounded-2xl bg-red-500 font-medium text-white shadow-sm transition-all duration-200 hover:-translate-y-0.5 hover:bg-red-600 hover:shadow-md cursor-pointer"
 									>
 										<Trash2 class="size-4" />
 										Delete
+									</button>
+									<button
+										@click="isModalOpen = false"
+										class="min-h-12 w-full rounded-2xl border border-slate-200 font-medium text-slate-600 transition-all duration-200 hover:bg-slate-50 cursor-pointer"
+									>
+										Cancel
 									</button>
 								</div>
 							</DialogPanel>

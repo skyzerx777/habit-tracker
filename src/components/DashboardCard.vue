@@ -20,7 +20,6 @@ defineProps<{
 		>
 			<component :is="item.icon" :class="`${item.textColor} size-7`" />
 		</div>
-
 		<div class="min-w-0">
 			<p class="truncate text-2xl font-bold">
 				{{ item.counter }}

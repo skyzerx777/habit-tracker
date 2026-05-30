@@ -9,7 +9,7 @@ import AddHabitModal from './AddHabitModal.vue';
 		class="sticky top-0 z-40 border-b border-slate-200 bg-white/80 backdrop-blur-md max-md:hidden"
 	>
 		<nav
-			class="mx-auto flex h-[73px] max-w-7xl items-center justify-between px-8"
+			class="mx-auto flex h-18.25 max-w-7xl items-center justify-between px-8"
 		>
 			<div class="flex w-1/4 items-center gap-3">
 				<div
@@ -17,13 +17,11 @@ import AddHabitModal from './AddHabitModal.vue';
 				>
 					<BadgeCheck class="size-6 text-main" />
 				</div>
-
 				<div>
 					<h1 class="text-lg font-bold text-slate-900">Habit Tracker</h1>
 					<p class="text-xs text-slate-500">Build consistency daily</p>
 				</div>
 			</div>
-
 			<ul class="flex items-center gap-2 rounded-2xl bg-slate-100 p-1">
 				<li>
 					<RouterLink
@@ -35,7 +33,6 @@ import AddHabitModal from './AddHabitModal.vue';
 						Dashboard
 					</RouterLink>
 				</li>
-
 				<li>
 					<RouterLink
 						to="/stats"
@@ -47,7 +44,6 @@ import AddHabitModal from './AddHabitModal.vue';
 					</RouterLink>
 				</li>
 			</ul>
-
 			<div class="flex w-1/4 justify-end">
 				<AddHabitModal />
 			</div>
@@ -56,10 +52,10 @@ import AddHabitModal from './AddHabitModal.vue';
 
 	<!-- Mobile -->
 	<div
-		class="fixed bottom-0 left-0 z-50 w-full border-t border-slate-200 bg-white/90 backdrop-blur-md md:hidden"
+		class="fixed -bottom-1 left-0 z-50 w-full border-t border-slate-200 bg-white/90 backdrop-blur-md md:hidden"
 	>
 		<nav class="px-2 py-2">
-			<ul class="flex items-center justify-around">
+			<ul class="grid grid-cols-3 items-center">
 				<li>
 					<RouterLink
 						to="/"
@@ -70,11 +66,9 @@ import AddHabitModal from './AddHabitModal.vue';
 						Dashboard
 					</RouterLink>
 				</li>
-
 				<li>
 					<AddHabitModal />
 				</li>
-
 				<li>
 					<RouterLink
 						to="/stats"

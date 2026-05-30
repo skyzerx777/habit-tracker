@@ -58,7 +58,6 @@ const completedToday = computed({
 			>
 				<component :is="icon?.icon" class="size-6 text-white" />
 			</div>
-
 			<div class="min-w-0">
 				<h3
 					class="truncate text-base font-semibold text-slate-800 transition-colors group-hover:text-main"
@@ -68,7 +67,6 @@ const completedToday = computed({
 
 				<div class="mt-1 flex items-center gap-1 text-sm text-slate-500">
 					<Flame class="size-4 text-orange-400" />
-
 					<span>
 						{{ store.getHabitStreak(habit.id) }}
 						day{{ store.getHabitStreak(habit.id) !== 1 ? 's' : '' }}
@@ -85,7 +83,6 @@ const completedToday = computed({
 				class="hidden"
 				name="habit-completion"
 			/>
-
 			<div
 				:class="[
 					'flex size-7 items-center justify-center rounded-xl border transition-all duration-200',
