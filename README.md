@@ -78,15 +78,15 @@ Add screenshots here.
 
 ### Dashboard
 
-<img width="1440" height="900" alt="image" src="https://github.com/user-attachments/assets/4474c576-0894-4de6-9161-51ab57f8c8c2" />
+<img width="1440" height="765" alt="image" src="https://github.com/user-attachments/assets/9828f676-76f5-40e2-887c-b0a6a25bdc21" />
 
 ### Habit Details
 
-<img width="1440" height="900" alt="image" src="https://github.com/user-attachments/assets/5bdd48d6-ed86-46d7-a32b-0738c4644d11" />
+<img width="1440" height="765" alt="image" src="https://github.com/user-attachments/assets/207538c1-9dc5-46eb-9877-2113811d037b" />
 
 ### Statistics
 
-<img width="1440" height="900" alt="image" src="https://github.com/user-attachments/assets/82ebada6-fd2d-4f99-99c1-d0560fe452cd" />
+<img width="1440" height="765" alt="image" src="https://github.com/user-attachments/assets/85ffcc53-0d7b-4eae-a781-a4a6f499a4a5" />
 
 ## Installation
 
